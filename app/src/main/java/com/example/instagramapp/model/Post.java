@@ -37,6 +37,14 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
+    public ParseFile getMedia() {
+        return getParseFile("media");
+    }
+
+    public void setMedia(ParseFile parseFile) {
+        put("media", parseFile);
+    }
+
     public static class Query extends ParseQuery<Post> {
         public Query() {
             super(Post.class);
