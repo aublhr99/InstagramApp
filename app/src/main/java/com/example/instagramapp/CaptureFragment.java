@@ -100,7 +100,7 @@ public class CaptureFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 Log.d("HomeActivity", "Photo grab successful!");
                 File photoFile = getPhotoFileUri(photoFileName);
-                ParseFile parseFile = new ParseFile(photoFile);
+                final ParseFile parseFile = new ParseFile(photoFile);
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
@@ -109,7 +109,12 @@ public class CaptureFragment extends Fragment {
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        savePost(ParseUser.getCurrentUser(), etCaption.getText().toString());
+                        if (parseFile == null || ivPreview.getDrawable() == null) {
+                            Log.e("Capture Fragment", "No Photo Found!");
+                            Toast.makeText(getContext(), "No Photo Found!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        savePost(ParseUser.getCurrentUser(), etCaption.getText().toString(), parseFile);
                     }
                 });
             } else { // Result was a failure
@@ -118,10 +123,11 @@ public class CaptureFragment extends Fragment {
         }
     }
 
-    private void savePost(ParseUser currentUser, String caption) {
+    private void savePost(ParseUser currentUser, String caption, ParseFile takenImage) {
         Post post = new Post();
         post.setDescription(caption);
         post.setUser(currentUser);
+        post.setImage(takenImage);
 
         post.saveInBackground(new SaveCallback() {
             @Override
@@ -129,6 +135,10 @@ public class CaptureFragment extends Fragment {
                 if (e == null) {
                     Toast.makeText(getApplicationContext(), "Post successful!", Toast.LENGTH_LONG).show();
                     etCaption.setText("");
+                    ivPreview.setImageResource(0);
+
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Posting Failed!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();

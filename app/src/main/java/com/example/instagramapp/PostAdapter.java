@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.instagramapp.model.Post;
 
 import java.util.List;
@@ -53,6 +54,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.tvUsername.setText(post.getUser().getUsername());
         viewHolder.tvCaption.setText(post.getDescription());
 
+        Glide.with(context)
+                .load(post.getImage().getUrl())
+                .into(viewHolder.ivPostImage);
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -62,6 +63,7 @@ public class PostFragment extends Fragment {
                         posts.set(i, objects.get(i));
                         postAdapter.notifyItemInserted(i);
                     }
+                    Collections.reverse(posts);
                 } else {
                     e.printStackTrace();
                 }
