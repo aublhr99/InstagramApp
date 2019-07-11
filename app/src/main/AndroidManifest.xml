@@ -14,10 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".LogoutActivity"
-            android:label="@string/title_activity_logout"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
