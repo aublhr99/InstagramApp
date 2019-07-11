@@ -1,6 +1,7 @@
 package com.example.instagramapp;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
@@ -31,6 +32,11 @@ public class DetailActivity extends AppCompatActivity {
         ivPostImage = (ImageView) findViewById(R.id.ivPostImage);
         tvCaption = (TextView) findViewById(R.id.tvCaption);
         tvTimestamp = (TextView) findViewById(R.id.tvTimestamp);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
+                ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_USE_LOGO);
+        actionBar.setIcon(R.drawable.nux_dayone_landing_logo);
 
         getCurrentPost();
     }

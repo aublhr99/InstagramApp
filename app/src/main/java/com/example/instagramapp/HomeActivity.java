@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -32,6 +33,11 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
+                ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_USE_LOGO);
+        actionBar.setIcon(R.drawable.nux_dayone_landing_logo);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         // handle navigation selection
