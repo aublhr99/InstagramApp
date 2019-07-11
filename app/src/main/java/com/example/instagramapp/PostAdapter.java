@@ -1,6 +1,7 @@
 package com.example.instagramapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -82,18 +83,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-//            itemView.setOnClickListener(this);
-//            //Toast.makeText(context, "Clicked!", Toast.LENGTH_LONG).show();
-//            int position = getAdapterPosition();
-//
-//            Post post = mPosts.get(position);
-//
-//            Intent details = new Intent(context, DetailsActivity.class);
-//            details.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
-//            details.putExtra(User.class.getSimpleName(), Parcels.wrap(post.user));
-//            details.putExtra("scrollPosition", position);
-//
-//            context.startActivity(details);
+            itemView.setOnClickListener(this);
+            //Toast.makeText(context, "Clicked!", Toast.LENGTH_LONG).show();
+            int position = getAdapterPosition();
+
+            Post post = mPosts.get(position);
+
+            Intent details = new Intent(context, DetailActivity.class);
+            details.putExtra("scrollPosition", position);
+            details.putExtra("postId", post.getObjectId());
+            details.putExtra("username", post.getUser().getUsername());
+
+            context.startActivity(details);
         }
     }
 }
