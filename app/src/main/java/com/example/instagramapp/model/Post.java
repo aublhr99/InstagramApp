@@ -53,7 +53,7 @@ public class Post extends ParseObject {
 
     public String getDescription() {
         String caption = getString(KEY_DESCRIPTION);
-        String description ="<b>" + getUser().getUsername() + "</b> " + caption;
+        String description ="<b>" + getUser().getUsername().toString() + "</b> " + caption;
         return description;
     }
 
@@ -93,6 +93,10 @@ public class Post extends ParseObject {
         ArrayList<ParseUser> user = new ArrayList<>();
         user.add(currentUser);
         removeAll("likedBy", user);
+    }
+
+    public String getCaption() {
+        return getString(KEY_DESCRIPTION);
     }
 
     public static class Query extends ParseQuery<Post> {

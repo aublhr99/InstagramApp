@@ -58,13 +58,13 @@ public class DetailActivity extends AppCompatActivity {
             public void done(final Post item, ParseException e) {
                 if (e == null) {
                     // Access data using the `get` methods for the object
-                    String body = item.getDescription();
+                    String body = item.getCaption();
                     // Access special values that are built-in to each object
                     String username = getIntent().getStringExtra("username");
                     Date createdAt = item.getCreatedAt();
                     // Do whatever you want with the data...
-                    tvCaption.setText(Html.fromHtml(item.getDescription()));
-                    tvUsername.setText(username);
+                    tvCaption.setText(Html.fromHtml("<b>" + username + "</b> " + body));
+                    tvUsername.setText(Html.fromHtml("<b>" + username + "</b>"));
                     tvTimestamp.setText(item.getRelativeTime(item.getCreatedAt().toString()));
                     tvLikes.setText(Integer.toString(item.getNumLikes()));
 

@@ -56,7 +56,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         final Post post = mPosts.get(position);
 
-        viewHolder.tvUsername.setText(post.getUser().getUsername());
+        String username = post.getUser().getUsername();
+        viewHolder.tvUsername.setText(Html.fromHtml("<b>" + username + "</b>"));
         viewHolder.tvCaption.setText(Html.fromHtml(post.getDescription()));
         viewHolder.tvTimestamp.setText(post.getRelativeTime(post.getCreatedAt().toString()));
         viewHolder.tvLikes.setText(Integer.toString(post.getNumLikes()));
