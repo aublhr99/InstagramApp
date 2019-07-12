@@ -124,6 +124,6 @@ public class Post extends ParseObject {
         relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
 
-        return relativeDate;
+        return relativeDate.toUpperCase();
     }
 }
