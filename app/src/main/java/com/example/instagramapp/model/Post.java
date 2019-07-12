@@ -8,8 +8,12 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 @ParseClassName("Post")
@@ -18,6 +22,34 @@ public class Post extends ParseObject {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_USER = "user";
     private static final String KEY_IMAGE = "image";
+
+    public JSONArray getFans() {
+        if (getJSONArray("likedBy") == null) {
+            return new JSONArray();
+        } else {
+            return getJSONArray("likedBy");
+        }
+    }
+
+    public void likePost(ParseUser u) {
+        add("likedBy", u);
+    }
+
+    public boolean isLiked() {
+        JSONArray fans = getFans();
+        if (fans != null) {
+            for (int i = 0; i < fans.length(); i++) {
+                try {
+                    if (fans.getJSONObject(i).getString("objectId").equals(ParseUser.getCurrentUser().getObjectId())) {
+                        return true;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -49,6 +81,16 @@ public class Post extends ParseObject {
 
     public void setMedia(ParseFile parseFile) {
         put("media", parseFile);
+    }
+
+    public int getNumLikes() {
+        return getFans().length();
+    }
+
+    public void unlike(ParseUser currentUser) {
+        ArrayList<ParseUser> user = new ArrayList<>();
+        user.add(currentUser);
+        removeAll("likedBy", user);
     }
 
     public static class Query extends ParseQuery<Post> {
