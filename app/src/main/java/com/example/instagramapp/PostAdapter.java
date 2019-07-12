@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         final Post post = mPosts.get(position);
 
         viewHolder.tvUsername.setText(post.getUser().getUsername());
-        viewHolder.tvCaption.setText(post.getDescription());
+        viewHolder.tvCaption.setText(Html.fromHtml(post.getDescription()));
         viewHolder.tvTimestamp.setText(post.getRelativeTime(post.getCreatedAt().toString()));
         viewHolder.tvLikes.setText(Integer.toString(post.getNumLikes()));
 

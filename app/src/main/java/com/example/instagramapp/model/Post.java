@@ -52,7 +52,9 @@ public class Post extends ParseObject {
     }
 
     public String getDescription() {
-        return getString(KEY_DESCRIPTION);
+        String caption = getString(KEY_DESCRIPTION);
+        String description ="<b>" + getUser().getUsername() + "</b> " + caption;
+        return description;
     }
 
     public void setDescription(String description) {
